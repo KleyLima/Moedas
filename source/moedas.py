@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from sys import exit
+from sys import argv
 
 
 class Moedas:
@@ -16,6 +16,7 @@ class Moedas:
         cls.moedas = [1, 0.50, 0.25, 0.10, 0.05, 0.01]
         cls.gen = (coin for coin in cls.moedas)
         cls.lst = []
+        cls.pretty = []
 
     @classmethod
     def valor_moedas(cls):
@@ -44,6 +45,16 @@ class Moedas:
         except ValueError:
             return False
 
+    @classmethod
+    def formater(cls):
+        cls.pretty = [f"{qtd} Moedas de R${coin}" if qtd > 1 else f"{qtd} Moeda de R${coin}" for coin, qtd in cls.lst]
+        [print(x) for x in cls.pretty] if cls.pretty else None
+
+    @classmethod
+    def make_it_happen(cls):
+        cls.valor_moedas()
+        cls.formater()
+
 
 if __name__ == '__main__':
-    print(Moedas(input()).valor_moedas())
+    Moedas(float(input("Digite o valor (Não esqueça das moedas)")) if len(argv) == 1 else argv[1]).make_it_happen()
